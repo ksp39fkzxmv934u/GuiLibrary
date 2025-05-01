@@ -124,6 +124,26 @@ function Library.TextLabel(...)
 	return obj
 end
 
+function Library.TextBox(...)
+	local obj = Instance.new("TextBox")
+	local args = {...}
+	for i,v in pairs(args[1]) do
+		if not table.find(protectionindexes, i) then
+			obj[i] = v
+		end
+	end
+	if args[1]["Draggable_"] ~= nil then
+		SetDraggable(obj)
+	end
+	if args[1]["attach"] ~= nil then
+		args[1]["attach"].Changed:Connect(function()
+			obj.AnchorPoint = args[1]["attach"].AnchorPoint
+			obj.Position = args[1]["attach"].Position
+		end)
+	end
+	return obj
+end
+
 function Library.ViewportFrame(...)
 	local obj = Instance.new("ViewportFrame")
 	local args = {...}
